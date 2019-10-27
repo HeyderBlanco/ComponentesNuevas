@@ -9,9 +9,9 @@ import { UserInterface } from '../user-interface';
 })
 export class GitUsersComponent implements OnInit {
 
-  searchUsers: UserInterface;
-  searchQueryUsers: string;
-  displayUsers: string;
+  searchResults: UserInterface;
+  searchQuery: string;
+  displayResults: string;
   
 
   constructor(private GitSearchService: GitSearchService) {
@@ -19,15 +19,15 @@ export class GitUsersComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.searchQueryUsers = 'pedro';
-    this.displayUsers = this.searchQueryUsers;
+    this.searchQuery = 'pedro';
+    this.displayResults = this.searchQuery;
     this.gitUsuarios();
   }
 
   gitUsuarios =()=>{
-    this.GitSearchService.gitUser(this.searchQueryUsers).then((response)=>{
-      this.searchUsers = response;
-      this.displayUsers= this.searchQueryUsers;
+    this.GitSearchService.gitUser(this.searchQuery).then((response)=>{
+      this.searchResults = response;
+      this.displayResults= this.searchQuery;
       //alert('Total repositories found: '+response.total_count);
     },(error) => {
       alert('Error: '+ error.statusText);
