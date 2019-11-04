@@ -20,7 +20,7 @@ export class GitSearchService {
         this.http.get('https://api.github.com/search/repositories?q='+query).toPromise().then((response)=>{
           resolve(response as GitSearch)
         },(error)=>{
-          reject(error);
+          reject(error); 
         })
       }
     })
