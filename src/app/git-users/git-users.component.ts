@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GitSearchService } from '../git-search.service';
 import { UserInterface } from '../user-interface';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router'
 
 @Component({
   selector: 'app-git-users',
@@ -12,16 +13,28 @@ export class GitUsersComponent implements OnInit {
   searchResults: UserInterface;
   searchQuery: string;
   displayResults: string;
+  title:string;
+  page:string;
   
 
-  constructor(private GitSearchService: GitSearchService) {
+  constructor(private GitSearchService: GitSearchService,private route: ActivatedRoute,private router: Router) {
     
    }
 
   ngOnInit() {
-    this.searchQuery = 'pedro';
-    this.displayResults = this.searchQuery;
-    this.gitUsuarios();
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.searchQuery = params.get('query');
+      this.displayResults = params.get('query');
+      if(params.get('page'))
+        this.page = params.get('page');
+      else
+        this.page = "0";
+      this.gitUsuarios();
+    })
+    this.route.data.subscribe((result) => {
+      this.title = result.title
+    });
+
   }
 
   gitUsuarios =()=>{
